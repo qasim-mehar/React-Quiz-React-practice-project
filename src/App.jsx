@@ -24,11 +24,13 @@ function App() {
   const [state, dispatch]=useReducer(reducer, initialState)
   useEffect(function(){
     async function getQuestion() {
-      const res =await fetch("http://localhost:8000/questions");
-      const data = await res.json()
-      console.log(data);
-      dispatch({type: "dataRecieved", payload:data});
+    
+        fetch("http://localhost:8000/questions")
+        .then(res=>res.json())
+        .then(data=>dispatch({type:"dataRecieved", payload:data}))
+        
     }
+    
     getQuestion();
   },[])
   return(
