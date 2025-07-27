@@ -14,6 +14,9 @@ function reducer(state,action){
       quetions:action.payload,
       status:"ready"
     }
+    case "error":return{
+      ...state, status:"error"
+    }
   
     default:
       break;
@@ -28,7 +31,7 @@ function App() {
         fetch("http://localhost:8000/questions")
         .then(res=>res.json())
         .then(data=>dispatch({type:"dataRecieved", payload:data}))
-        
+        .catch(dispatch({type:"error"}))
     }
     
     getQuestion();
