@@ -2,14 +2,32 @@
 import Main from "./main"
 import Header from "./Header"
 import "./App.css"
-import { useEffect } from "react"
+import { useEffect, useReducer } from "react"
+const initialState={
+  quetions:[],
+  status: "loading" //Loading, error,ready, active, finished
+}
+function reducer(state,action){
+  switch (action.type) {
+    case "dataRecieved": return{
+      ...state,
+      quetions:action.payload,
+      status:"ready"
+    }
+  
+    default:
+      break;
+  }
+}
 
 function App() {
+  const [state, dispatch]=useReducer(reducer, initialState)
   useEffect(function(){
     async function getQuestion() {
       const res =await fetch("http://localhost:8000/questions");
       const data = await res.json()
       console.log(data);
+      dispatch({type: "dataRecieved", payload:data});
     }
     getQuestion();
   },[])
