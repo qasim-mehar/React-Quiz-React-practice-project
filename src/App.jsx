@@ -1,8 +1,14 @@
-// import { useState } from 'react'
-import Main from "./main"
-import Header from "./Header"
-import "./App.css"
+
+import Error from "./components/Loader"
+import Main from "./components/Main"
+import Header  from "./components/Header"
+import StartScreen  from "./components/StartScreen"
+import Loader from "./components/Loader"
+
+
+// import "./App.css"
 import { useEffect, useReducer } from "react"
+
 const initialState={
   quetions:[],
   status: "loading" //Loading, error,ready, active, finished
@@ -24,7 +30,9 @@ function reducer(state,action){
 }
 
 function App() {
-  const [state, dispatch]=useReducer(reducer, initialState)
+  const [ {quetions,status}, dispatch]=useReducer(reducer, initialState)
+const numOfQuestions=quetions.length
+
   useEffect(function(){
     async function getQuestion() {
     
@@ -38,12 +46,13 @@ function App() {
   },[])
   return(
     
-    <div>
+    <div className="app">
       <Header/>
       <main className="main">
          <main>
-          <p>1/15</p>
-          <p>Quesion </p>
+          {status==="loading"&& <Loader/>}
+          {status==="error"&&<Error/>}
+          {status==="ready" && <StartScreen numOfQuestions={numOfQuestions}/>}
          </main>
          
       </main>
