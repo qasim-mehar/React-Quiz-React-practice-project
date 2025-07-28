@@ -1,12 +1,11 @@
 import React from "react";
-function Questions({question}) {
-    console.log(question);
+import Options from "./Options"
+function Questions({question, onAnswer,answer}) {
+    
     return(
-          <div>
+          <div >
             <h4>{question.question}</h4>
-          <div className="options">
-             {question.options.map(option=><button className="btn btn-option">{option}</button>)}
-          </div>
+             <Options onAnswer={onAnswer} answer={answer} question={question}/>
           </div>
           
     )
