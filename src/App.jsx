@@ -4,24 +4,30 @@ import Main from "./components/Main"
 import Header  from "./components/Header"
 import StartScreen  from "./components/StartScreen"
 import Loader from "./components/Loader"
+import Questions from "./components/Questions"
 
 
 // import "./App.css"
 import { useEffect, useReducer } from "react"
 
 const initialState={
-  quetions:[],
-  status: "loading" //Loading, error,ready, active, finished
+  questions:[],
+  status: "loading", //Loading, error,ready, active, finished
+  questionIndex:0,
 }
 function reducer(state,action){
   switch (action.type) {
     case "dataRecieved": return{
       ...state,
-      quetions:action.payload,
+      questions:action.payload,
       status:"ready"
     }
     case "error":return{
       ...state, status:"error"
+    }
+    case "startQuiz": return{
+      ...state,
+      status:"active",
     }
   
     default:
@@ -30,8 +36,8 @@ function reducer(state,action){
 }
 
 function App() {
-  const [ {quetions,status}, dispatch]=useReducer(reducer, initialState)
-const numOfQuestions=quetions.length
+  const [ {questions,status, questionIndex}, dispatch]=useReducer(reducer, initialState)
+const numOfQuestions=questions.length
 
   useEffect(function(){
     async function getQuestion() {
@@ -52,7 +58,8 @@ const numOfQuestions=quetions.length
          <main>
           {status==="loading"&& <Loader/>}
           {status==="error"&&<Error/>}
-          {status==="ready" && <StartScreen numOfQuestions={numOfQuestions}/>}
+          {status==="ready" && <StartScreen numOfQuestions={numOfQuestions} onStartQuiz={dispatch}/>}
+          {status ==="active"&& <Questions question={questions[questionIndex]}/>}
          </main>
          
       </main>
