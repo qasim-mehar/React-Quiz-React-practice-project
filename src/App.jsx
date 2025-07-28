@@ -5,6 +5,7 @@ import Header  from "./components/Header"
 import StartScreen  from "./components/StartScreen"
 import Loader from "./components/Loader"
 import Questions from "./components/Questions"
+import NewButton from "./components/NewButton"
 
 
 // import "./App.css"
@@ -39,6 +40,11 @@ function reducer(state,action){
       answer:action.payload,
       points:isCorrect?question.points:state.points,
     }}
+    case "nextQuestion":
+      return{
+        ...state,
+       questionIndex:state.questionIndex+1, 
+      }
   
     default:
       break;
@@ -69,8 +75,12 @@ const numOfQuestions=questions.length
           {status==="loading"&& <Loader/>}
           {status==="error"&&<Error/>}
           {status==="ready" && <StartScreen numOfQuestions={numOfQuestions} onStartQuiz={dispatch}/>}
-          {status ==="active"&& <Questions question={questions[questionIndex]} onAnswer={dispatch} answer={answer}/>}
-         </main>
+          {status ==="active"&& (
+          <>
+          <Questions question={questions[questionIndex]} onAnswer={dispatch} answer={answer}/>
+          <NewButton onClick={dispatch} isAnswer={answer}/>
+          </>)}
+       </main>
          
       </main>
     </div>
