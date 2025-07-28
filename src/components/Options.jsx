@@ -1,11 +1,12 @@
 function Options({question,onAnswer,answer}){
     const hasAnswer= answer!==null;
+    console.log(question);
     return(
         <div className="options">
              {question.options.map((option, i)=>
              <button 
                 key={option}
-                onClick={()=>onAnswer({type:"newAnswer", payload:i })}
+                onClick={()=>onAnswer({type:"newAnswer", payload:i,})}
                 className={`btn btn-option 
                 ${answer===i ?"answer":""}
                 ${hasAnswer ?

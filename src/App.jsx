@@ -14,7 +14,8 @@ const initialState={
   questions:[],
   status: "loading", //Loading, error,ready, active, finished
   questionIndex:0,
-  answer:null
+  answer:null,
+  points:7
 }
 function reducer(state,action){
   switch (action.type) {
@@ -30,10 +31,14 @@ function reducer(state,action){
       ...state,
       status:"active",
     }
-    case "newAnswer":return{
+    case "newAnswer":{
+      const question=state.questions.at(state.questionIndex)
+      const isCorrect= question.correctOption===action.payload;
+      return{
       ...state,
       answer:action.payload,
-    }
+      points:isCorrect?question.points:state.points,
+    }}
   
     default:
       break;
