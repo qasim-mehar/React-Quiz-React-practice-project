@@ -83,7 +83,12 @@ const totaPoints=questions?.reduce((prev,cur) => prev+cur.points,0);
           {status==="ready" && <StartScreen numOfQuestions={numOfQuestions} onStartQuiz={dispatch}/>}
           {status ==="active"&& (
           <>
-          
+          <ProgressBar 
+          questionIndex={questionIndex}
+          numOfQuestions={numOfQuestions} 
+          points={points}
+          totalPoints={totaPoints}
+          answer={answer}/>
           <Questions question={questions[questionIndex]} onAnswer={dispatch} answer={answer}/>
           <NewButton onClick={dispatch} isAnswer={answer}/>
           </>)}
