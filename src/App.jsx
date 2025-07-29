@@ -6,6 +6,7 @@ import StartScreen  from "./components/StartScreen"
 import Loader from "./components/Loader"
 import Questions from "./components/Questions"
 import NewButton from "./components/NewButton"
+import ProgressBar from "./components/ProgressBar"
 
 
 // import "./App.css"
@@ -53,8 +54,12 @@ function reducer(state,action){
 }
 
 function App() {
-  const [ {questions,status, questionIndex, answer}, dispatch]=useReducer(reducer, initialState)
-const numOfQuestions=questions.length
+  const [ {questions,status, questionIndex, answer,points}, dispatch]=useReducer(reducer, initialState)
+const numOfQuestions=questions.length;
+const totaPoints=questions?.reduce((prev,cur) => prev+cur.points,0);
+// console.log(totaPoints);
+
+
 
   useEffect(function(){
     async function getQuestion() {
@@ -78,6 +83,7 @@ const numOfQuestions=questions.length
           {status==="ready" && <StartScreen numOfQuestions={numOfQuestions} onStartQuiz={dispatch}/>}
           {status ==="active"&& (
           <>
+          
           <Questions question={questions[questionIndex]} onAnswer={dispatch} answer={answer}/>
           <NewButton onClick={dispatch} isAnswer={answer}/>
           </>)}
