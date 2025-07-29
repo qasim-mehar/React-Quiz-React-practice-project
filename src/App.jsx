@@ -16,7 +16,7 @@ const initialState={
   status: "loading", //Loading, error,ready, active, finished
   questionIndex:0,
   answer:null,
-  points:7
+  points:0
 }
 function reducer(state,action){
   switch (action.type) {
@@ -43,7 +43,8 @@ function reducer(state,action){
     case "nextQuestion":
       return{
         ...state,
-       questionIndex:state.questionIndex+1, 
+       questionIndex:state.questionIndex+1,
+       answer:null,
       }
   
     default:
