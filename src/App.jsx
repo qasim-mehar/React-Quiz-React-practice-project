@@ -1,4 +1,9 @@
 
+
+
+// import "./App.css"
+import { useEffect, useReducer } from "react"
+import FinishScreen from "./components/FinishScreen"
 import Error from "./components/Loader"
 import Main from "./components/Main"
 import Header  from "./components/Header"
@@ -8,9 +13,6 @@ import Questions from "./components/Questions"
 import NewButton from "./components/NewButton"
 import ProgressBar from "./components/ProgressBar"
 
-
-// import "./App.css"
-import { useEffect, useReducer } from "react"
 
 const initialState={
   questions:[],
@@ -92,6 +94,7 @@ const totaPoints=questions?.reduce((prev,cur) => prev+cur.points,0);
           <Questions question={questions[questionIndex]} onAnswer={dispatch} answer={answer}/>
           <NewButton onClick={dispatch} isAnswer={answer}/>
           </>)}
+          {status==="finished"&& <FinishScreen points={points} totalPoints={totaPoints}/>}
        </main>
          
       </main>
