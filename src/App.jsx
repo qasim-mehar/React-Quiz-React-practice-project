@@ -17,7 +17,7 @@ import ProgressBar from "./components/ProgressBar"
 const initialState={
   questions:[],
   status: "loading", //Loading, error,ready, active, finished
-  questionIndex:0,
+  questionIndex:13,
   answer:null,
   points:0
 }
@@ -44,12 +44,17 @@ function reducer(state,action){
       points:isCorrect?question.points:state.points,
     }}
     case "nextQuestion":
+     
       return{
         ...state,
-       questionIndex:state.questionIndex+1,
+        questionIndex:state.questionIndex+1,
        answer:null,
       }
-  
+      case "finishQuiz":
+              return{
+                ...state,
+              status:"finished",
+              }
     default:
       break;
   }
@@ -92,7 +97,7 @@ const totaPoints=questions?.reduce((prev,cur) => prev+cur.points,0);
           totalPoints={totaPoints}
           answer={answer}/>
           <Questions question={questions[questionIndex]} onAnswer={dispatch} answer={answer}/>
-          <NewButton onClick={dispatch} isAnswer={answer}/>
+          <NewButton onClick={dispatch} isAnswer={answer} questionIndex={questionIndex} numOfQuestions={numOfQuestions}/>
           </>)}
           {status==="finished"&& <FinishScreen points={points} totalPoints={totaPoints}/>}
        </main>
