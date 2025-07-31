@@ -22,6 +22,7 @@ const initialState={
   answer:null,
   points:0,
   highestScore:0,
+  secondsRemaining:100,
 }
 function reducer(state,action){
   switch (action.type) {
@@ -36,6 +37,7 @@ function reducer(state,action){
     case "startQuiz": return{
       ...state,
       status:"active",
+      
     }
     case "newAnswer":{
       const question=state.questions.at(state.questionIndex)
@@ -64,14 +66,21 @@ function reducer(state,action){
             points:0,
             status:"active",
             answer:null,
+            secondsRemaining:10,
            }
+     case "timer":
+      return{
+        ...state,
+        secondsRemaining:state.secondsRemaining-1,
+        status:state.secondsRemaining>0?"active":"finished",
+      }
     default:
       break;
   }
 }
 
 function App() {
-  const [ {questions,status, questionIndex, answer,points, highestScore}, dispatch]=useReducer(reducer, initialState)
+  const [ {questions,status, questionIndex, answer,points, highestScore, secondsRemaining}, dispatch]=useReducer(reducer, initialState)
 const numOfQuestions=questions.length;
 const totaPoints=questions?.reduce((prev,cur) => prev+cur.points,0);
 // console.log(totaPoints);
@@ -108,7 +117,7 @@ const totaPoints=questions?.reduce((prev,cur) => prev+cur.points,0);
           answer={answer}/>
           <Questions question={questions[questionIndex]} onAnswer={dispatch} answer={answer}/>
           <Footer>
-            <Timer/>
+            <Timer secondsRemaining={secondsRemaining} dispatch={dispatch}/>
             <NewButton 
           onClick={dispatch}
           isAnswer={answer} 
