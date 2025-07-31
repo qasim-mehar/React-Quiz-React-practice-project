@@ -12,7 +12,8 @@ import Loader from "./components/Loader"
 import Questions from "./components/Questions"
 import NewButton from "./components/NewButton"
 import ProgressBar from "./components/ProgressBar"
-
+import Footer from "./components/Footer"
+import Timer from "./components/Timer"
 
 const initialState={
   questions:[],
@@ -106,7 +107,14 @@ const totaPoints=questions?.reduce((prev,cur) => prev+cur.points,0);
           totalPoints={totaPoints}
           answer={answer}/>
           <Questions question={questions[questionIndex]} onAnswer={dispatch} answer={answer}/>
-          <NewButton onClick={dispatch} isAnswer={answer} questionIndex={questionIndex} numOfQuestions={numOfQuestions}/>
+          <Footer>
+            <Timer/>
+            <NewButton 
+          onClick={dispatch}
+          isAnswer={answer} 
+          questionIndex={questionIndex} 
+          numOfQuestions={numOfQuestions}/> 
+          </Footer>
           </>)}
           {status==="finished"&& <FinishScreen dispatch={dispatch} highestScore={highestScore}  points={points} totalPoints={totaPoints}/>}
        </main>
