@@ -1,4 +1,4 @@
-function FinishScreen({points,totalPoints,highestScore}) {
+function FinishScreen({points,totalPoints,highestScore, dispatch}) {
     const percentage = Math.ceil((points / totalPoints) * 100);
 let emoji;
 
@@ -24,6 +24,7 @@ if (percentage <= 40) {
              You have scored <strong>{points}</strong> out of {totalPoints} ({Math.ceil(percentage)}%) {emoji}
         </p>
         <p className="highscore"> Highest Score: {highestScore} point</p>
+        <button className="btn btn-ui" onClick={()=>dispatch({type:"restartQuiz"})}> Restart Quiz</button>
         </>
     )
 }

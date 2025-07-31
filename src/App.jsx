@@ -51,13 +51,19 @@ function reducer(state,action){
        answer:null,
       }
       case "finishQuiz":
-          
             return{
             ...state,
             status:"finished",
             highestScore:state.points>state.highestScore?state.points:state.highestScore
-
           }
+      case "restartQuiz": 
+           return{
+            ...state,
+            questionIndex:0,
+            points:0,
+            status:"active",
+            answer:null,
+           }
     default:
       break;
   }
@@ -102,7 +108,7 @@ const totaPoints=questions?.reduce((prev,cur) => prev+cur.points,0);
           <Questions question={questions[questionIndex]} onAnswer={dispatch} answer={answer}/>
           <NewButton onClick={dispatch} isAnswer={answer} questionIndex={questionIndex} numOfQuestions={numOfQuestions}/>
           </>)}
-          {status==="finished"&& <FinishScreen highestScore={highestScore}  points={points} totalPoints={totaPoints}/>}
+          {status==="finished"&& <FinishScreen dispatch={dispatch} highestScore={highestScore}  points={points} totalPoints={totaPoints}/>}
        </main>
          
       </main>
