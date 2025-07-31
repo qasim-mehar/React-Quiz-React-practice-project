@@ -19,7 +19,8 @@ const initialState={
   status: "loading", //Loading, error,ready, active, finished
   questionIndex:13,
   answer:null,
-  points:0
+  points:0,
+  highestScore:0,
 }
 function reducer(state,action){
   switch (action.type) {
@@ -44,24 +45,26 @@ function reducer(state,action){
       points:isCorrect?question.points:state.points,
     }}
     case "nextQuestion":
-     
       return{
         ...state,
         questionIndex:state.questionIndex+1,
        answer:null,
       }
       case "finishQuiz":
-              return{
-                ...state,
-              status:"finished",
-              }
+          { 
+            return{
+            ...state,
+            status:"finished",
+            highestScore:state.points>state.highestScore?state.points:state.highestScore
+
+          }}
     default:
       break;
   }
 }
 
 function App() {
-  const [ {questions,status, questionIndex, answer,points}, dispatch]=useReducer(reducer, initialState)
+  const [ {questions,status, questionIndex, answer,points, highestScore}, dispatch]=useReducer(reducer, initialState)
 const numOfQuestions=questions.length;
 const totaPoints=questions?.reduce((prev,cur) => prev+cur.points,0);
 // console.log(totaPoints);
@@ -99,7 +102,7 @@ const totaPoints=questions?.reduce((prev,cur) => prev+cur.points,0);
           <Questions question={questions[questionIndex]} onAnswer={dispatch} answer={answer}/>
           <NewButton onClick={dispatch} isAnswer={answer} questionIndex={questionIndex} numOfQuestions={numOfQuestions}/>
           </>)}
-          {status==="finished"&& <FinishScreen points={points} totalPoints={totaPoints}/>}
+          {status==="finished"&& <FinishScreen highestScore={highestScore}  points={points} totalPoints={totaPoints}/>}
        </main>
          
       </main>
