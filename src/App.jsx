@@ -17,7 +17,7 @@ import ProgressBar from "./components/ProgressBar"
 const initialState={
   questions:[],
   status: "loading", //Loading, error,ready, active, finished
-  questionIndex:13,
+  questionIndex:0,
   answer:null,
   points:0,
   highestScore:0,
@@ -42,7 +42,7 @@ function reducer(state,action){
       return{
       ...state,
       answer:action.payload,
-      points:isCorrect?question.points:state.points,
+      points:isCorrect?state.points+question.points:state.points,
     }}
     case "nextQuestion":
       return{
@@ -51,13 +51,13 @@ function reducer(state,action){
        answer:null,
       }
       case "finishQuiz":
-          { 
+          
             return{
             ...state,
             status:"finished",
             highestScore:state.points>state.highestScore?state.points:state.highestScore
 
-          }}
+          }
     default:
       break;
   }
