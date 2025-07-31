@@ -22,8 +22,9 @@ const initialState={
   answer:null,
   points:0,
   highestScore:0,
-  secondsRemaining:100,
+  secondsRemaining:null,
 }
+const SEC_PER_QUESTION=30;
 function reducer(state,action){
   switch (action.type) {
     case "dataRecieved": return{
@@ -37,7 +38,7 @@ function reducer(state,action){
     case "startQuiz": return{
       ...state,
       status:"active",
-      
+      secondsRemaining:state.questions.length * SEC_PER_QUESTION,
     }
     case "newAnswer":{
       const question=state.questions.at(state.questionIndex)
@@ -73,6 +74,7 @@ function reducer(state,action){
         ...state,
         secondsRemaining:state.secondsRemaining-1,
         status:state.secondsRemaining>0?"active":"finished",
+
       }
     default:
       break;
