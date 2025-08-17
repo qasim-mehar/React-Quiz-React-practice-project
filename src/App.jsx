@@ -90,9 +90,8 @@ const totaPoints=questions?.reduce((prev,cur) => prev+cur.points,0);
 
 
   useEffect(function(){
-    async function getQuestion() {
-    
-        fetch("http://localhost:8000/questions")
+     async function getQuestion() {
+      fetch("https://my-json-server.typicode.com/qasim-mehar/Questions-API-for-ReactJs-Quiz-App/questions")
         .then(res=>res.json())
         .then(data=>dispatch({type:"dataRecieved", payload:data}))
         .catch(dispatch({type:"error"}))
