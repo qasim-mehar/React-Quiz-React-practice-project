@@ -1,4 +1,7 @@
-function Options({question,onAnswer,answer}){
+import { useQuiz } from "../Contexts/QuizContext";
+
+function Options(){
+    const {question,dispatch,answer}=useQuiz()
     const hasAnswer= answer!==null;
 
     return(
@@ -6,7 +9,7 @@ function Options({question,onAnswer,answer}){
              {question.options.map((option, i)=>
              <button 
                 key={option}
-                onClick={()=>onAnswer({type:"newAnswer", payload:i,})}
+                onClick={()=>dispatch({type:"newAnswer", payload:i,})}
                 className={`btn btn-option 
                 ${answer===i ?"answer":""}
                 ${hasAnswer ?

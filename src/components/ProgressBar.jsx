@@ -1,4 +1,8 @@
-function ProgressBar({questionIndex,numOfQuestions,points,totalPoints,answer}) {
+import { useQuiz } from "../Contexts/QuizContext";
+
+function ProgressBar() {
+    const {questionIndex,numOfQuestions,points,answer,totalPoints}=useQuiz()
+    //   const totalPoints=questions?.reduce((prev,cur) => prev+cur.points,0);
     // console.log(totalPoints);
     
     return(

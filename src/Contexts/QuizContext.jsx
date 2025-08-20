@@ -85,7 +85,9 @@ function QuizProvider({ children }) {
     },
     dispatch,
   ] = useReducer(reducer, initialState);
-
+  const numOfQuestions=questions.length;
+  const totalPoints=questions?.reduce((prev,cur) => prev+Number(cur.points),0);
+  
   return (
     <quizContext.Provider
       value={{
@@ -97,6 +99,9 @@ function QuizProvider({ children }) {
         highestScore,
         secondsRemaining,
         dispatch,
+        numOfQuestions,
+        totalPoints,
+        question:questions[questionIndex]
       }}
     >
       {children}

@@ -83,9 +83,8 @@ import { useQuiz } from "./Contexts/QuizContext"
 // }
 
 function App() {
-  const {questions,status, questionIndex, answer,points, highestScore, secondsRemaining, dispatch}=useQuiz()
-const numOfQuestions=questions.length;
-const totaPoints=questions?.reduce((prev,cur) => prev+cur.points,0);
+  const {status,dispatch}=useQuiz()
+
 // console.log(totaPoints);
 
 
@@ -104,33 +103,24 @@ const totaPoints=questions?.reduce((prev,cur) => prev+cur.points,0);
     
     <div className="app">
       <Header/>
-      <main className="main">
-         <main>
+      <Main className="main">
+         <Main>
           {status==="loading"&& <Loader/>}
           {status==="error"&&<Error/>}
-          {status==="ready" && <StartScreen numOfQuestions={numOfQuestions} onStartQuiz={dispatch}/>}
+          {status==="ready" && <StartScreen />}
           {status ==="active"&& (
           <>
-          <ProgressBar 
-          questionIndex={questionIndex}
-          numOfQuestions={numOfQuestions} 
-          points={points}
-          totalPoints={totaPoints}
-          answer={answer}/>
-          <Questions question={questions[questionIndex]} onAnswer={dispatch} answer={answer}/>
+          <ProgressBar />
+          <Questions />
           <Footer>
-            <Timer secondsRemaining={secondsRemaining} dispatch={dispatch}/>
-            <NewButton 
-          onClick={dispatch}
-          isAnswer={answer} 
-          questionIndex={questionIndex} 
-          numOfQuestions={numOfQuestions}/> 
+            <Timer />
+            <NewButton /> 
           </Footer>
           </>)}
-          {status==="finished"&& <FinishScreen dispatch={dispatch} highestScore={highestScore}  points={points} totalPoints={totaPoints}/>}
-       </main>
+          {status==="finished"&& <FinishScreen />}
+       </Main>
          
-      </main>
+      </Main>
     </div>
   )
 }

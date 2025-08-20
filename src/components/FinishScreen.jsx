@@ -1,5 +1,9 @@
-function FinishScreen({points,totalPoints,highestScore, dispatch}) {
+import { useQuiz } from "../Contexts/QuizContext";
+
+function FinishScreen() {
+  const {points,totalPoints,highestScore, dispatch}=useQuiz()
     const percentage = Math.ceil((points / totalPoints) * 100);
+    console.log(percentage);
 let emoji;
 
 if (percentage <= 40) {
