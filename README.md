@@ -1,6 +1,6 @@
 # 📝 React Quiz App  
 
-A React-based quiz application built to practice **React hooks**, particularly `useReducer`, while working with dynamic JSON-based quiz data.  
+A React-based quiz application built to practice **React hooks**, particularly `useReducer`,**Context API** and **Custom hooks** while working with dynamic JSON-based quiz data.  
 
 🔗 **[Live Demo](https://qasim-mehar.github.io/React-Quiz-ReactJs-practice-project/)**  
 
@@ -37,15 +37,37 @@ A React-based quiz application built to practice **React hooks**, particularly `
 
 This project demonstrates:  
 
-### 🎣 `useReducer` for State Management  
-- Centralized state handling for quiz flow.  
-- Clean logic for transitions: start → answer → next → finish → restart.  
-- Replaces multiple `useState` hooks with a single reducer function.  
+### 🎣 `useReducer` + Context API for State Management  
+- Centralized state handling using a **global `QuizContext`**.  
+- Clean, reusable logic exposed through a **`useQuiz` custom hook**.  
+- Scales better than local state — any component can access quiz state directly.  
 
 ### 🔄 React Hooks Mastery  
-- **`useReducer`**: Manages quiz states, score, and timer.  
+- **`useReducer`**: Manages quiz flow, score, and timer.  
+- **`useContext`**: Exposes global state to all quiz components.  
 - **`useEffect`**: Timer countdown and side effects.  
 - **`useState`**: Input and UI toggles where needed.  
+
+---
+
+## 🎨 Component Structure  
+
+- **StartScreen**: Intro screen with "Start Quiz" button.  
+- **QuestionScreen**: Displays question, options, timer, and next button.  
+- **ResultScreen**: Shows score and restart option.  
+- **Timer**: Handles countdown logic.  
+- **Reducer**: Centralizes quiz state (score, index, time).  
+
+
+---
+
+## 💡 Advanced Patterns Demonstrated  
+
+- **Context + Custom Hook**: A `QuizContext` Provider and `useQuiz` hook work together to make state accessible anywhere.  
+- **Reducer Pattern**: Clean state transitions with actions (`start`, `answer`, `next`, `finish`, `restart`).  
+- **Controlled Components**: Handling user answers.  
+- **Side Effects Cleanup**: Clearing timer intervals in `useEffect`.  
+- **Data Decoupling**: Using external JSON as a question bank.  
 
 ---
 
@@ -83,24 +105,7 @@ graph TD
     H --> J[useEffect Timer]
 ```
 
----
 
-## 🎨 Component Structure  
-
-- **StartScreen**: Intro screen with "Start Quiz" button.  
-- **QuestionScreen**: Displays question, options, timer, and next button.  
-- **ResultScreen**: Shows score and restart option.  
-- **Timer**: Handles countdown logic.  
-- **Reducer**: Centralizes quiz state (score, index, time).  
-
----
-
-## 💡 Advanced Patterns Demonstrated  
-
-- **Reducer Pattern**: Clean state transitions with actions (`start`, `answer`, `next`, `finish`, `restart`).  
-- **Controlled Components**: Handling user answers.  
-- **Side Effects Cleanup**: Clearing timer intervals in `useEffect`.  
-- **Data Decoupling**: Using external JSON as a question bank.  
 
 ---
 
